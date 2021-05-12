@@ -62,9 +62,9 @@ namespace Task02
                 if (!int.TryParse(input, out int startingIndex) || startingIndex -1 < 0)
                     throw new ArgumentException();
                 string[] values = Console.ReadLine().Split();
-                foreach (string str in values)
+                for (int i=0; i < values.Length; i++ )
                 {
-                    str.Trim();
+                    values[i] = values[i].Trim();
                 }
                 if (startingIndex > values.Length)
                     throw new ArgumentException();

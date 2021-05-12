@@ -54,12 +54,16 @@ namespace Task03
                     info = input.Split();
                     if (info.Length < 2)
                         throw new ArgumentException();
+                    info[0] = info[0].Replace(info[0][0], info[0].ToUpper()[0]);
+                    info[1] = info[1].Replace(info[1][0], info[1].ToUpper()[0]);
                     people[i] = new Person(info[1], info[0]);
                 }
                 People peopleList = new People(people);
 
                 foreach (Person p in peopleList)
                     Console.WriteLine(p);
+
+                Console.WriteLine();
 
                 foreach (Person p in peopleList.GetPeople)
                     Console.WriteLine(p);

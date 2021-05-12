@@ -30,6 +30,10 @@ namespace Task05
         {
             try
             {
+                string input = Console.ReadLine();
+                if (!int.TryParse(input, out _))
+                    throw new ArgumentException();
+                int value = int.Parse(input);
                 MyDigits myDigits = new MyDigits();
                 IEnumerator enumerator = myDigits.MyEnumerator(value);
 
@@ -56,11 +60,21 @@ namespace Task05
 
     class MyDigits : IEnumerator // НЕ МЕНЯТЬ ЭТУ СТРОКУ
     {
+        public object Current => throw new NotImplementedException();
 
         public bool MoveNext()
         {
-           
+            return true;
         }
 
+        public void Reset()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal IEnumerator MyEnumerator(object value)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

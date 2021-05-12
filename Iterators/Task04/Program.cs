@@ -53,7 +53,7 @@ namespace Task04
             {
                 output += Ints.number * Ints.number + " ";
             }
-            Console.WriteLine(output.Remove(output.Length - 1));
+            Console.Write(output.Remove(output.Length - 1));
         }
     }
 

@@ -62,6 +62,13 @@ namespace Task02
                 if (!int.TryParse(input, out int startingIndex) || startingIndex < 0)
                     throw new ArgumentException();
                 string[] values = Console.ReadLine().Split();
+                foreach (string str in values)
+                {
+                    if (!int.TryParse(str, out _))
+                    {
+                        throw new ArgumentException();
+                    }
+                }
                 foreach (string ob in new IteratorSample(values, startingIndex))
                     Console.Write(ob + " ");
             }

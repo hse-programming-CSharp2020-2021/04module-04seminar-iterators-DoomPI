@@ -59,18 +59,14 @@ namespace Task02
             try
             {
                 string input = Console.ReadLine();
-                if (!int.TryParse(input, out int startingIndex) || startingIndex < 0)
+                if (!int.TryParse(input, out int startingIndex) || startingIndex -1 < 0)
                     throw new ArgumentException();
                 string[] values = Console.ReadLine().Split();
-                foreach (string str in values)
-                {
-                    if (!int.TryParse(str, out _))
-                    {
-                        throw new ArgumentException();
-                    }
-                }
+                if (startingIndex > values.Length)
+                    throw new ArgumentException();
                 foreach (string ob in new IteratorSample(values, startingIndex))
                     Console.Write(ob + " ");
+                Console.WriteLine();
             }
             catch (ArgumentException)
             {
@@ -80,7 +76,7 @@ namespace Task02
             {
                 Console.WriteLine("problem");
             }
-
+            Console.ReadLine();
         }
     }
 }

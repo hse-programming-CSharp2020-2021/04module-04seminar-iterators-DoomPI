@@ -65,10 +65,10 @@ namespace Task05
             {
                 string[] snums = output.Trim().Split();
                 output = "";
-                int[] nums = new int[snums.Length];
+                long[] nums = new long[snums.Length];
                 for (int i = 0; i < nums.Length; i++)
                 {
-                    nums[i] = int.Parse(snums[nums.Length - 1 - i]);
+                    nums[i] = long.Parse(snums[nums.Length - 1 - i]);
                     output += nums[i] + " ";
                 }
             }
@@ -80,7 +80,7 @@ namespace Task05
     class MyDigits : IEnumerator // НЕ МЕНЯТЬ ЭТУ СТРОКУ
     {
         public static bool turn = true;
-        public int number = 0;
+        public long number = 0;
 
         private int value;
 
@@ -127,4 +127,5 @@ namespace Task05
         }
     }
 }
+
 

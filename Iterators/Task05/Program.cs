@@ -55,26 +55,76 @@ namespace Task05
 
         static void IterateThroughEnumeratorWithoutUsingForeach(IEnumerator enumerator)
         {
+            MyDigits myDigits = (MyDigits)enumerator;
+            string output = "";
+            while (myDigits.MoveNext() == true)
+            {
+                output += Math.Pow(myDigits.number, 10) + " ";
+            }
+            if (MyDigits.turn == true)
+            {
+                string[] snums = output.Trim().Split();
+                output = "";
+                int[] nums = new int[snums.Length];
+                for (int i = 0; i < nums.Length; i++)
+                {
+                    nums[i] = int.Parse(snums[nums.Length - 1 - i]);
+                    output += nums[i] + " ";
+                }
+            }
+            Console.Write(output.Remove(output.Length - 1));
+
         }
     }
 
     class MyDigits : IEnumerator // НЕ МЕНЯТЬ ЭТУ СТРОКУ
     {
-        public object Current => throw new NotImplementedException();
+        public static bool turn = true;
+        public int number = 0;
+
+        private int value;
+
+        public MyDigits()
+        {
+        }
+
+        public MyDigits(object value)
+        {
+            this.value = (int)value;
+        }
+
+        public object Current
+        {
+            get
+            {
+                return number;
+            }
+        }
 
         public bool MoveNext()
         {
-            return true;
+            if (number + 1 <= value)
+            {
+                number++;
+                return true;
+            }
+            number = 0;
+            if (turn == false)
+                turn = true;
+            else
+                turn = false;
+            return false;
         }
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            number = 0;
         }
 
         internal IEnumerator MyEnumerator(object value)
         {
-            throw new NotImplementedException();
+            return new MyDigits(value);
         }
     }
 }
+

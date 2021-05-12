@@ -58,7 +58,8 @@ namespace Task02
         {
             try
             {
-                if (!int.TryParse(Console.ReadLine(), out int startingIndex) || startingIndex < 0)
+                string input = Console.ReadLine();
+                if (!int.TryParse(input, out int startingIndex) || startingIndex < 0)
                     throw new ArgumentException();
                 string[] values = Console.ReadLine().Split();
                 foreach (string ob in new IteratorSample(values, startingIndex))

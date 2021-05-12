@@ -47,11 +47,13 @@ namespace Task04
 
         static void IterateThroughEnumeratorWithoutUsingForeach(IEnumerator enumerator)
         {
+            string output = "";
             MyInts Ints = (MyInts)enumerator;
             while (Ints.MoveNext() == true)
             {
-                Console.Write(Ints.number * Ints.number + " ");
+                output += Ints.number * Ints.number + " ";
             }
+            Console.WriteLine(output.Remove(output.Length - 1));
         }
     }
 

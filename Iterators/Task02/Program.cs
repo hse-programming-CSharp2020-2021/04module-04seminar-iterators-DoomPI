@@ -64,7 +64,6 @@ namespace Task02
                 string[] values = Console.ReadLine().Split();
                 foreach (string ob in new IteratorSample(values, startingIndex))
                     Console.Write(ob + " ");
-                Console.WriteLine();
             }
             catch (ArgumentException)
             {
@@ -75,7 +74,6 @@ namespace Task02
                 Console.WriteLine("problem");
             }
 
-            Console.ReadLine();
         }
     }
 }

@@ -37,7 +37,9 @@ namespace Task03
         {
             try
             {
-                int N =
+                if (!int.TryParse(Console.ReadLine(), out int n) || n < 0)
+                    throw new ArgumentException();
+                int N = n;
                 Person[] people = new Person[N];
 
                 People peopleList = new People(people);
@@ -73,6 +75,12 @@ namespace Task03
     public class People : IEnumerable
     {
         private Person[] _people;
+
+        public People(Person[] people)
+        {
+            _people = people;
+        }
+
         public Person[] GetPeople
         {
             get {
@@ -95,7 +103,10 @@ namespace Task03
     {
         public Person[] _people;
 
-      
+        public PeopleEnum(Person[] people)
+        {
+            _people = people;
+        }
 
         public bool MoveNext()
         {

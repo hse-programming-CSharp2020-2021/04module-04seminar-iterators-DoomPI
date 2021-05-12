@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Text;
+using System.Linq;
 
 /* На вход подается число N.
  * На каждой из следующих N строках записаны ФИО человека, 
@@ -40,24 +40,21 @@ namespace Task03
             {
                 if (!int.TryParse(Console.ReadLine(), out int n) || n < 0)
                     throw new ArgumentException();
+
                 int N = n;
                 Person[] people = new Person[N];
 
-                string input;
-                string[] info;
-
-                for (int i = 0; i < N; i++)
+                for (int index = 0; index < people.Length; index++)
                 {
-                    Console.InputEncoding = Encoding.UTF8;
-                    Console.OutputEncoding = Encoding.UTF8;
-                    input = Console.ReadLine();
-                    info = input.Split();
+                    string[] info = Console.ReadLine().Split(' ');
+
                     if (info.Length < 2)
                         throw new ArgumentException();
-                    info[0] = info[0].Replace(info[0][0], info[0].ToUpper()[0]);
-                    info[1] = info[1].Replace(info[1][0], info[1].ToUpper()[0]);
-                    people[i] = new Person(info[1], info[0]);
+
+                    else people[index] = new Person(info[1], info[0]);
                 }
+
+
                 People peopleList = new People(people);
 
                 foreach (Person p in peopleList)
@@ -75,7 +72,7 @@ namespace Task03
         }
     }
 
-    public class Person : IComparable
+    public class Person
     {
         public string firstName;
         public string lastName;
@@ -86,39 +83,16 @@ namespace Task03
             this.lastName = lastName;
         }
 
-        public int CompareTo(object obj)
-        {
-            Person per = (Person)obj;
-            int res = lastName.ToLower().CompareTo(per.lastName.ToLower());
-            if (res == 0)
-            {
-                return firstName.ToLower().CompareTo(per.firstName.ToLower());
-            }
-            return res;
-        }
-
         public override string ToString()
         {
-            return lastName + " " + firstName.Substring(0, 1) + ".";
+            return $"{lastName[0].ToString().ToUpper() + lastName.Substring(1)} {firstName[0].ToString().ToUpper()}.";
         }
-
-
     }
 
 
     public class People : IEnumerable
     {
         private Person[] _people;
-
-        public People(Person[] people)
-        {
-            _people = new Person[people.Length];
-            for (int i = 0; i < people.Length; i++)
-            {
-                _people[i] = people[i];
-            }
-        }
-
         public Person[] GetPeople
         {
             get
@@ -132,6 +106,11 @@ namespace Task03
             return GetEnumerator();
         }
 
+        public People(Person[] people)
+        {
+            _people = people;
+        }
+
         public PeopleEnum GetEnumerator()
         {
             return new PeopleEnum(_people);
@@ -141,32 +120,17 @@ namespace Task03
     public class PeopleEnum : IEnumerator
     {
         public Person[] _people;
+        private int numerator = -1;
 
-        int position = -1;
-
-        public PeopleEnum(Person[] people)
-        {
-            _people = new Person[people.Length];
-            for (int i = 0; i < people.Length; i++)
-            {
-                _people[i] = people[i];
-            }
-            Array.Sort(_people);
-        }
 
         public bool MoveNext()
         {
-            if (position < _people.Length - 1)
-            {
-                position++;
-                return true;
-            }
-            else return false;
+            return ++numerator < _people.Length;
         }
 
         public void Reset()
         {
-            position = -1;
+            numerator = -1;
         }
 
 
@@ -174,10 +138,15 @@ namespace Task03
         {
             get
             {
-                return _people[position];
+                return _people[numerator];
             }
         }
 
         object IEnumerator.Current => Current;
+
+        public PeopleEnum(Person[] people)
+        {
+            _people = (from human in people orderby human.ToString() select human).ToArray();
+        }
     }
 }

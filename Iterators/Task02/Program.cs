@@ -43,7 +43,7 @@ namespace Task02
         public IEnumerator GetEnumerator()
         {
             for (int index = 0; index < values.Length; index++)
-                yield return values[(index + start) % values.Length];
+                yield return values[(index + start - 1) % values.Length];
         }
 
         IEnumerator<string> IEnumerable<string>.GetEnumerator()
@@ -58,9 +58,9 @@ namespace Task02
         {
             try
             {
-                int startingIndex = int.Parse(Console.ReadLine());
+                if (!int.TryParse(Console.ReadLine(), out int startingIndex) || startingIndex < 0)
+                    throw new ArgumentException();
                 string[] values = Console.ReadLine().Split();
-
                 foreach (string ob in new IteratorSample(values, startingIndex))
                     Console.Write(ob + " ");
                 Console.WriteLine();

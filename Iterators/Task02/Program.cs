@@ -59,13 +59,19 @@ namespace Task02
             try
             {
                 string input = Console.ReadLine();
-                if (!int.TryParse(input, out int startingIndex) || startingIndex -1 < 0)
+                if (!int.TryParse(input, out int startingIndex) || startingIndex - 1 < 0)
                     throw new ArgumentException();
-                string[] values = Console.ReadLine().Split();
-                for (int i=0; i < values.Length; i++ )
+                input = Console.ReadLine();
+                for (int i = 0; i < input.Length - 1; i++)
                 {
-                    values[i] = values[i].Trim();
+                    if (input[i] == ' ' && input[i + 1] == ' ')
+                    {
+                        input = input.Remove(i, 1);
+                        i--;
+                    }
                 }
+                string[] values = input.Split();
+
                 if (startingIndex > values.Length)
                     throw new ArgumentException();
                 foreach (string ob in new IteratorSample(values, startingIndex))
